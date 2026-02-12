@@ -1,0 +1,39 @@
+{
+  "name": "react-native-sync-file",
+  "version": "1.0.0",
+  "description": "Synchronous file access for React Native via JSI",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "react-native": "src/index",
+  "source": "src/index",
+  "scripts": {
+    "build": "tsc",
+    "prepare": "tsc"
+  },
+  "files": [
+    "dist",
+    "src",
+    "cpp",
+    "ios",
+    "android",
+    "react-native-sync-file.podspec"
+  ],
+  "keywords": [
+    "react-native",
+    "jsi",
+    "sync",
+    "file",
+    "filesystem"
+  ],
+  "peerDependencies": {
+    "react": "*",
+    "react-native": ">=0.71.0"
+  },
+  "devDependencies": {
+    "@types/react-native": "^0.73.0",
+    "react": "^18.2.0",
+    "react-native": "^0.73.0",
+    "typescript": "^5.0.0"
+  },
+  "license": "MIT"
+}
