@@ -26,17 +26,17 @@ function ensureInstalled(): void {
 /** Read an entire file as a UTF-8 string (synchronous). */
 export function readTextFileSync(path: string): string {
   ensureInstalled();
-  return global.__SyncFile_readTextFile(path);
+  return global.__SyncFile_readTextFile!(path);
 }
 
 /** Read an entire file into an ArrayBuffer (synchronous). */
 export function readBinaryFileSync(path: string): ArrayBuffer {
   ensureInstalled();
-  return global.__SyncFile_readBinaryFile(path);
+  return global.__SyncFile_readBinaryFile!(path);
 }
 
 /** Check if a file or directory exists (synchronous). */
 export function existsSync(path: string): boolean {
   ensureInstalled();
-  return global.__SyncFile_existsSync(path);
+  return global.__SyncFile_existsSync!(path);
 }
