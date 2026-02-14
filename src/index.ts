@@ -1,15 +1,15 @@
 import { NativeModules } from 'react-native';
 
 declare global {
-  var __SyncFile_readTextFile: (path: string) => string;
-  var __SyncFile_readBinaryFile: (path: string) => ArrayBuffer;
-  var __SyncFile_existsSync: (path: string) => boolean;
+  var __SyncFile_readTextFile: ((path: string) => string) | undefined;
+  var __SyncFile_readBinaryFile: ((path: string) => ArrayBuffer) | undefined;
+  var __SyncFile_existsSync: ((path: string) => boolean) | undefined;
 }
 
 let installed = false;
 
 function ensureInstalled(): void {
-  if (installed || global.__SyncFile_readTextFile) {
+  if (installed || typeof global.__SyncFile_readTextFile === 'function') {
     installed = true;
     return;
   }
