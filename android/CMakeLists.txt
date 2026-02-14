@@ -16,7 +16,7 @@ target_include_directories(sync-file PRIVATE
 
 target_link_libraries(sync-file
   ReactAndroid::jsi
-  ReactAndroid::reactnativejni
+  ReactAndroid::reactnative
   android
   log
 )
