@@ -16,6 +16,22 @@ using namespace facebook;
 
 namespace syncfile {
 
+// Convert raw bytes to valid UTF-8 (treat non-ASCII as Latin-1).
+// Bytes 0x80-0xFF become two-byte UTF-8 sequences.
+static std::string bytesToUtf8(const std::vector<uint8_t>& data) {
+  std::string result;
+  result.reserve(data.size());
+  for (uint8_t b : data) {
+    if (b < 0x80) {
+      result.push_back(static_cast<char>(b));
+    } else {
+      result.push_back(static_cast<char>(0xC0 | (b >> 6)));
+      result.push_back(static_cast<char>(0x80 | (b & 0x3F)));
+    }
+  }
+  return result;
+}
+
 static std::vector<uint8_t> readFileBytes(const std::string& path) {
   int fd = ::open(path.c_str(), O_RDONLY);
   if (fd < 0) {
@@ -55,7 +71,8 @@ void install(jsi::Runtime& runtime) {
       auto path = args[0].asString(rt).utf8(rt);
       try {
         auto data = readFileBytes(path);
-        return jsi::String::createFromUtf8(rt, data.data(), data.size());
+        auto utf8 = bytesToUtf8(data);
+        return jsi::String::createFromUtf8(rt, reinterpret_cast<const uint8_t*>(utf8.data()), utf8.size());
       } catch (const std::exception& e) {
         throw jsi::JSError(rt, e.what());
       }
